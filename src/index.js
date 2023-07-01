@@ -12,17 +12,21 @@ import store from './Store/Store';
 
 const defaultTheme = createTheme({
   palette: {
-    mode: 'light',
+    type: 'light',
     primary: {
-      //main: '#3F51B5',
-      main:'#795548',
+      main: '#3f51b5',
     },
     secondary: {
-      //main: '#FFC107',
-      main:'#F5F5F5'
+      main: '#f50057',
+    },
+    success: {
+      main: '#1b5e20',
+    },
+    info: {
+      main: '#01579b',
     },
     warning: {
-      main: '#f44336',
+      main: '#ff3d00',
     },
   },
 });
