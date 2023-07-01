@@ -8,15 +8,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
 import { useDispatch } from 'react-redux';
 import { addProduct,removeProduct } from '../Store/productSlice';
-import Rating from '@mui/material/Rating';
 import { useSelector } from 'react-redux';
 
-
 function ProductList(props){
-  const productstore = useSelector((state) => state.products);
     const [products, setProducts] = useState([]);
+    const productstore = useSelector((state) => state.products);
     const dispatch = useDispatch();
     useEffect(() => {
     const fetchProducts = async () => {
@@ -42,6 +41,7 @@ function ProductList(props){
         return objIndex===-1? true:false;
         }
         
+        
     return (
       <Container sx={{ py: 8 }} maxWidth="md">
         {/* End hero unit */}
@@ -56,50 +56,74 @@ function ProductList(props){
                   flexDirection: "column",
                 }}
               >
-                <CardMedia
-                  component="div"
-                  sx={{
-                    // 16:9
-                    pt: "56.25%",
-                  }}
-                  image={product.thumbnail}
-                />
+                <Link to={`/Products/${product.id}`} style={{ width: "100%" }}>
+                  <CardMedia
+                    component="div"
+                    sx={{
+                      // 16:9
+                      pt: "56.25%",
+                    }}
+                    image={product.thumbnail}
+                  />
+                </Link>
                 <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {product.title} <strong>${product.price}</strong>
+                  <Typography gutterBottom variant="h5" component="h2"    sx={{
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      WebkitLineClamp: '1',
+      WebkitBoxOrient: 'vertical',
+   }}>
+                    {product.title}
                   </Typography>
-                  <Typography>{product.description}</Typography>
+                  <Typography gutterBottom variant="h6" component="h6">
+                    <strong>${product.price}</strong>
+                  </Typography>
+                  <Typography    sx={{
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      WebkitLineClamp: '2',
+      WebkitBoxOrient: 'vertical',
+   }}>{product.description}</Typography>
                   <Rating name="read-only" value={product.rating} readOnly />
                 </CardContent>
-                <CardActions style={{ justifyContent: "space-between" }}>
-                  <Link to={`/Products/${product.id}`}>
-                    <Button variant="outlined" size="small">
-                      Details
+                <CardActions style={{ justifyContent: "center",flexWrap: 'wrap', }}>
+                  <Link
+                    to={`/Products/${product.id}`}
+                    style={{ width: "100%", marginBottom:'10px' }}
+                  >
+                    <Button
+                      style={{ width: "100%" }}
+                      variant="outlined"
+                      size="small"
+                      color='info'
+                    >
+                      VIEW Product
                     </Button>
                   </Link>
-                  {findInStore(product.id) ? (
-                    <Button
+
+                  {findInStore(product.id) ?(<Button
                       variant="contained"
                       size="small"
-                      style={{ selfAlign: "left" }}
+                      color='success'
+                      style={{ width: "100%" }}
                       onClick={() => {
                         addTodoHandler(product);
                       }}
                     >
                       Add
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      size="small"
-                      onClick={() => {
-                        removeTodoHandler(product);
-                      }}
-                    >
-                      Remove
-                    </Button>
-                  )}
+                    </Button> ) : (<Button
+                    style={{ width: "100%" }}
+                    variant="contained"
+                    color="error"
+                    size="small"
+                    onClick={() => {
+                      removeTodoHandler(product);
+                    }}
+                  >
+                    Remove
+                  </Button>)}
                 </CardActions>
               </Card>
             </Grid>
