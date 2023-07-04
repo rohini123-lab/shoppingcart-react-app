@@ -5,19 +5,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Container from "@mui/material/Container";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
+
 import React, { useState } from "react";
-import FormControl from "@mui/material/FormControl";
+
 import logo from "../logo-anu-mart.png";
 import { styled, alpha } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import Button from "@mui/material/Button";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -34,15 +29,15 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: "100%",
+//   position: "absolute",
+//   pointerEvents: "none",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -78,13 +73,12 @@ function Header() {
             height: "100%",
             display: "flex",
             flexDirection: "row",
-
             justifyContent: "space-between",
           }}
         >
           <div>
             <Link to="/">
-              <img src={logo} width={50} style={{ margin: "7px 0 0 0" }} />
+              <img src={logo} width={50} alt="Anus mart" style={{ margin: "7px 0 0 0" }} />
             </Link>
           </div>
 

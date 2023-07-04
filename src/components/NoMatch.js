@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function NoMatch(){
     const navigate = useNavigate();
     return(

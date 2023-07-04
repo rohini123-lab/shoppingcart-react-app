@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
 function Product(){
@@ -75,10 +75,11 @@ function Product(){
     label="Category"
     className='ui-select'
     onChange={handleChange}
+    style={{textTransform:'capitalize'}}
   >
     <MenuItem key={'all'} value={'all'}>All</MenuItem>
     {categoryArray && categoryArray.map((m)=>{
-      return <MenuItem key={m} value={m}>{m}</MenuItem>
+      return <MenuItem key={m} value={m} style={{textTransform:'capitalize'}}>{m}</MenuItem>
     })}
    
   </Select>
