@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
+
 const Header = lazy(() => import('./components/Header'));
 const CheckOut = lazy(() => import('./components/CheckOut'));
 const Product = lazy(() => import('./components/Product'));
 const OrderSummary = lazy(() => import('./components/OrderSummary'));
 const ProductDetails = lazy(() => import('./components/ProductDetails'));
+const Search = lazy(() => import('./components/Search'));
 const NoMatch = lazy(() => import('./components/NoMatch'))
 
 export default function App() {
@@ -53,6 +55,8 @@ return (
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/order-summary" element={<OrderSummary />} />
           <Route path="*" element={<NoMatch />} />
+          <Route path="/search/:q" element={<Search/>} />
+
         </Routes>
       </Suspense>
     </main>

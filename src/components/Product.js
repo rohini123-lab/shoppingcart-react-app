@@ -66,7 +66,7 @@ function Product(){
               spacing={2}
               justifyContent="space-between"
             >
-      <FormControl style={{width:'200px'}} >
+  <FormControl style={{width:'200px'}} >
   <InputLabel id="demo-simple-select-label" >Filter by Category</InputLabel>
   <Select 
     labelId="demo-simple-select-label"

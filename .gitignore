@@ -1,1 +1,35 @@
-node_modules
+# Ignore compiled object files
+*.o
+
+# Ignore executables
+*.exe
+*.out
+
+# Ignore specific files or directories
+my_secret_file.txt
+logs/
+
+# Ignore files with specific extensions
+*.log
+*.tmp
+
+# Ignore generated files or directories
+build/
+dist/
+node_modules/
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore configuration files with sensitive information
+config.ini
+secrets.yml
+
+# Ignore backup files
+*.bak
+*.backup
