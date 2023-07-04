@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -69,54 +69,61 @@ function ProductImages({ images }) {
   
 if(product){
     return (
-      <Container sx={{ py: 10 }} maxWidth="md">
-       
-       <Stack
-              sx={{ pt: 2,pb: 2 }}
-              direction="row"
-              spacing={0}
-              justifyContent="space-between"
-              
-            > <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => navigate(-1)}
-         
+      <Container sx={{ pt: 10 }} maxWidth="md">
+        <Stack
+          sx={{ pt: 0, pb: 3 }}
+          direction="row"
+          spacing={0}
+          justifyContent="space-between"
         >
-          <ArrowBackIosIcon />Back
-        </Button>
-        <Button onClick={() => navigate('/checkout')}  disabled={productstore.length>0 ? false :true} variant="contained" color='info'>CheckOut</Button>
+          {" "}
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowBackIosIcon />
+            Back
+          </Button>
+          <Button
+            size="large"
+            onClick={() => navigate("/order-summary")}
+            disabled={productstore.length > 0 ? false : true}
+            variant="contained"
+            color="secondary"
+          >
+            view cart 
+          </Button>
         </Stack>
+        <Typography gutterBottom variant="h3" component="h3">
+          {product.title} <strong>${product.price}</strong>
+        </Typography>
         <Grid container spacing={3}>
-          <Grid item md={8} xs={12}>
-           
+          <Grid item md={5} xs={12}>
             <img
-        src={product.thumbnail}
-        alt={product.title}
-        loading="lazy"
-        style={{width:'100%'}}
-      />
- 
-     {product.images&& (<ProductImages images={product.images} />)}
-
+              src={product.thumbnail}
+              alt={product.title}
+              loading="lazy"
+              style={{ width: "100%" }}
+            />
           </Grid>
-          <Grid item xs={12}  md={4}>
-            <Typography gutterBottom variant="h5" component="h2">
-              {product.title} <strong>${product.price}</strong>
-            </Typography>
+          <Grid item xs={12} md={7}>
             <Typography>{product.description}</Typography>
             <Typography>Brand : {product.brand}</Typography>
             <Typography>Stock: {product.stock}</Typography>
             <Typography>Discount: {product.discountPercentage}%</Typography>
-            
-            {product.rating&& (<Rating name="read-only" value={product.rating} readOnly />)}
+
+            {product.rating && (
+              <Rating name="read-only" value={product.rating} readOnly />
+            )}
             <Typography>category: {product.category}</Typography>
             {findInStore(product.id) ? (
               <Button
                 variant="contained"
                 size="large"
-                color="success"
-                style={{ selfAlign: "left", marginTop:'20px' }}
+                color="primary"
+                style={{ selfAlign: "left", marginTop: "20px" }}
                 onClick={() => {
                   addTodoHandler(product);
                 }}
@@ -128,14 +135,17 @@ if(product){
                 variant="contained"
                 color="error"
                 size="large"
-                style={{ selfAlign: "left", marginTop:'20px' }}
+                style={{ selfAlign: "left", marginTop: "20px" }}
                 onClick={() => {
                   removeTodoHandler(product);
                 }}
               >
-                Remove
+                Remove from cart
               </Button>
             )}
+          </Grid>
+          <Grid item xs={12} md={12}>
+            {product.images && <ProductImages images={product.images} />}
           </Grid>
         </Grid>
       </Container>

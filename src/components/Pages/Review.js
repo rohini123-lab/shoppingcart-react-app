@@ -19,7 +19,10 @@ export default function Review(props) {
     { name: 'Card number', detail: props.fromDataPayment.cardNumber },
     { name: 'Expiry date', detail: props.fromDataPayment.expDate },
   ];
-
+  const CalculatePrice = products.reduce((prevVal,currVal)=>{
+    return prevVal + currVal.price
+  }, 0)
+  console.log(CalculatePrice);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -37,7 +40,7 @@ export default function Review(props) {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            ${CalculatePrice}
           </Typography>
         </ListItem>
       </List>

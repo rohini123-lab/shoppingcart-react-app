@@ -6,29 +6,42 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
+
+import logo from '../logo-anu-mart.png';
+
 function Header(){
   const products = useSelector((state) => state.products);
 return (
   <AppBar position="fixed">
     <Container maxWidth="md">
     <Toolbar
+    style={{paddingLeft:'0px',
+    paddingRight:'0px',}}
       sx={{
         height: "100%",
         display: "flex",
         flexDirection: "row",
+        
         justifyContent: "space-between",
       }}
     >
-      <Link to="/">
-        <Typography variant="h6" color="white" noWrap>
-          ShoppingCart
-        </Typography>
+     
+     <div>
+     <Link to="/" >
+      <img src={logo} width={50} style={{margin:'7px 0 0 0'}}  />
       </Link>
-      <Link to="/" style={{color:'#fff'}}>
+     </div>
+       
+     
+     <div style={{ display:'flex', justifyContent: "space-between", width:'25%'}}>
+      <Link to="/" style={{color:'#fff'}}>SHOP</Link>
+      <Link to="/search" style={{color:'#fff'}}>SEARCH</Link>
+      <Link to="/order-summary" style={{color:'#fff'}}>
       <Badge badgeContent={products.length} color="secondary">
         <ShoppingCartIcon />
       </Badge>
       </Link>
+     </div>
     </Toolbar>
     </Container>
   </AppBar>

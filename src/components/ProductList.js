@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from "@mui/material"
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,21 +12,14 @@ import Rating from '@mui/material/Rating';
 import { useDispatch } from 'react-redux';
 import { addProduct,removeProduct } from '../Store/productSlice';
 import { useSelector } from 'react-redux';
+import Chip from '@mui/material/Chip';
 
 function ProductList(props){
-    const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+    
+  const products =props.products?props.products:[]
     const productstore = useSelector((state) => state.products);
-    const dispatch = useDispatch();
-    useEffect(() => {
-    const fetchProducts = async () => {
-            const response = await fetch(
-               'https://dummyjson.com/products'
-            );
-            const productsData = await response.json();
-            setProducts(productsData.products);
-         };
-         fetchProducts();
-        }, []);
+   
 
         const addTodoHandler = (product) => {
           dispatch(addProduct(product));
@@ -40,94 +33,115 @@ function ProductList(props){
         let  objIndex = productstore.findIndex((obj => obj.id === id));
         return objIndex===-1? true:false;
         }
-        
+ 
         
     return (
       <Container sx={{ py: 8 }} maxWidth="md">
-        {/* End hero unit */}
         <Grid container spacing={4}>
-          {products.map((product) => (
-            <Grid item key={product.id} xs={12} sm={6} md={4}>
-              <Card
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  pb: "5px",
-                  flexDirection: "column",
-                }}
-              >
-                <Link to={`/Products/${product.id}`} style={{ width: "100%" }}>
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      // 16:9
-                      pt: "56.25%",
-                    }}
-                    image={product.thumbnail}
-                  />
-                </Link>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2"    sx={{
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      display: '-webkit-box',
-      WebkitLineClamp: '1',
-      WebkitBoxOrient: 'vertical',
-   }}>
-                    {product.title}
-                  </Typography>
-                  <Typography gutterBottom variant="h6" component="h6">
-                    <strong>${product.price}</strong>
-                  </Typography>
-                  <Typography    sx={{
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      display: '-webkit-box',
-      WebkitLineClamp: '2',
-      WebkitBoxOrient: 'vertical',
-   }}>{product.description}</Typography>
-                  <Rating name="read-only" value={product.rating} readOnly />
-                </CardContent>
-                <CardActions style={{ justifyContent: "center",flexWrap: 'wrap', }}>
+          {products &&
+            products.map((product) => (
+              <Grid item key={product.id} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    pb: "5px",
+                    flexDirection: "column",
+                  }}
+                >
                   <Link
                     to={`/Products/${product.id}`}
-                    style={{ width: "100%", marginBottom:'10px' }}
+                    style={{ width: "100%" }}
                   >
-                    <Button
-                      style={{ width: "100%" }}
-                      variant="outlined"
-                      size="small"
-                      color='info'
-                    >
-                      VIEW Product
-                    </Button>
+                    <CardMedia
+                      component="div"
+                      sx={{
+                        // 16:9
+                        pt: "56.25%",
+                      }}
+                      image={product.thumbnail}
+                    />
                   </Link>
-
-                  {findInStore(product.id) ?(<Button
-                      variant="contained"
-                      size="small"
-                      color='success'
-                      style={{ width: "100%" }}
-                      onClick={() => {
-                        addTodoHandler(product);
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "1",
+                        WebkitBoxOrient: "vertical",
                       }}
                     >
-                      Add
-                    </Button> ) : (<Button
-                    style={{ width: "100%" }}
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    onClick={() => {
-                      removeTodoHandler(product);
-                    }}
+                      {product.title}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="h6">
+                      <strong>${product.price}</strong>
+                    </Typography>
+                    <Typography
+                      sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "2",
+                        WebkitBoxOrient: "vertical",
+                      }}
+                    >
+                      {product.description}
+                    </Typography>
+
+                    Discount: <Chip color='error' style={{backgroundColor:'yellow',border:'1px solid #000', color:'#000'}} label={product.discountPercentage +'%'} variant="contained" />
+                    
+                    <Rating name="read-only" value={product.rating} readOnly />
+                  </CardContent>
+                  <CardActions
+                    style={{ justifyContent: "center", flexWrap: "wrap" }}
                   >
-                    Remove
-                  </Button>)}
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                    <Link
+                      to={`/Products/${product.id}`}
+                      style={{ width: "100%", marginBottom: "10px" }}
+                    >
+                      <Button
+                        style={{ width: "100%" }}
+                        variant="outlined"
+                        size="large"
+                        color="primary"
+                      >
+                        VIEW Product
+                      </Button>
+                    </Link>
+
+                    {findInStore(product.id) ? (
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="primary"
+                        style={{ width: "100%" }}
+                        onClick={() => {
+                          addTodoHandler(product);
+                        }}
+                      >
+                        Add To Cart
+                      </Button>
+                    ) : (
+                      <Button
+                        style={{ width: "100%" }}
+                        variant="contained"
+                        color="error"
+                        size="large"
+                        onClick={() => {
+                          removeTodoHandler(product);
+                        }}
+                      >
+                        Remove from cart
+                      </Button>
+                    )}
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
         </Grid>
       </Container>
     );
